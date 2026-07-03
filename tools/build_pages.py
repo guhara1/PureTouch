@@ -36,7 +36,6 @@ ASIDE = f"""<aside class="aside">
         <h3 class="cta-title">지금 예약 문의</h3>
         <p class="cta-sub">천안·대전·세종·호남권 생활권별 방문 안내</p>
         <a class="btn btn-accent cta-btn" href="tel:0508-202-4719">전화 예약 0508-202-4719</a>
-        <a class="btn btn-ghost cta-btn" href="{TG}" target="_blank" rel="noopener nofollow">{TG_ICON} 텔레그램 문의</a>
         <ul class="cta-price">
           <li><span>60분 코스</span><b>90,000원</b></li>
           <li><span>90분 코스</span><b>150,000원</b></li>
