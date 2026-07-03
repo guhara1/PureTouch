@@ -141,16 +141,21 @@ def render(page):
   <meta property="og:description" content="{page['desc']}" />
   <meta property="og:url" content="{url}" />
   <meta property="og:image" content="{SITE}/assets/og-cover.jpg" />
+  <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/style.css" />
   {schema_block(url, page['h1'], crumbs, faq)}
 </head>
 <body>
 {HEADER}
-<main class="section">
-  <div class="wrap prose">
+<section class="hero hero-sub">
+  <div class="wrap">
     {breadcrumb_html(crumbs)}
     <h1>{page['h1']}</h1>
+  </div>
+</section>
+<main class="section">
+  <div class="wrap prose">
 {body}
   </div>
 </main>
