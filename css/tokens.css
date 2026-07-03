@@ -36,8 +36,8 @@
   --c-line:         rgba(255, 255, 255, 0.09);
   --c-line-2:       rgba(255, 255, 255, 0.14);
 
-  /* ---- Hero 배경 이미지 (사용자가 /assets/hero.jpg 추가) ---- */
-  --hero-bg:        url("/assets/hero.jpg");
+  /* ---- Hero 배경 이미지 ---- */
+  --hero-bg:        url("/assets/hero.webp");
 
   /* ---- Gradients / overlays ---- */
   --grad-accent:    linear-gradient(135deg, #ff9a44 0%, #ff7a18 45%, #ef6109 100%);
