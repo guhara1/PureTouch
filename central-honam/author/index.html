@@ -13,6 +13,10 @@
   <meta property="og:description" content="간다GO 지역 안내 콘텐츠의 작성·검수 책임과 문의 연락처를 안내합니다." />
   <meta property="og:url" content="https://gandago.co.kr/central-honam/author/" />
   <meta property="og:image" content="https://gandago.co.kr/assets/og-cover.jpg" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -53,6 +57,35 @@
           "item": "https://gandago.co.kr/central-honam/author/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "콘텐츠는 누가 만드나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "천안·대전·세종·호남권에서 방문 안내를 실제 운영하는 간다GO 운영팀이 직접 작성하고 검수합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "정보가 틀린 것 같은데 어떻게 알리나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "대표번호 0508-202-4719로 알려주시면 확인 후 신속히 정정합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "후기나 별점은 왜 없나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "실제 후기 데이터가 게시 기준을 갖추기 전까지는 허위·조작 가능성이 있는 별점·리뷰를 사용하지 않는 것이 운영 원칙입니다."
+          }
+        }
+      ]
     }
   ]
 }
@@ -81,20 +114,48 @@
   <div class="wrap">
     <div class="article-layout">
       <article class="article-main prose">
-<p>이 사이트의 지역 안내 콘텐츠는 천안·대전·세종·호남권 생활권을 직접 확인하는 간다GO 운영팀이 작성하고 검수합니다.</p>
-<h2>작성·검수 기준</h2>
+<p>이 사이트의 모든 지역 안내 콘텐츠는 천안·대전·세종·호남권에서 출장 케어 방문 안내를 실제로 운영하는 간다GO 운영팀이 작성하고 검수합니다. 이 페이지는 '누가, 어떻게, 왜' 이 콘텐츠를 만들었는지를 공개해, 이용자가 안내 내용의 출처와 책임 주체를 확인할 수 있도록 마련했습니다.</p>
+<h2>누가 작성하나요 (Who)</h2>
+<p>지역 페이지의 생활권 구분, 건물 유형별 출입 기준, 이동 기준은 해당 지역에서 방문 안내를 운영하며 축적된 상담·방문 경험을 바탕으로 운영팀이 직접 작성합니다. 외부에 위탁해 대량 생산한 콘텐츠나, 다른 사이트를 복사한 콘텐츠는 사용하지 않습니다.</p>
+<h2>어떻게 작성하나요 (How)</h2>
 <ul>
-  <li>실제 생활권·숙소·이동 기준을 확인한 정보만 게시합니다.</li>
-  <li>지역명만 바꾼 복붙 문장이나 검색용 도어웨이 페이지를 만들지 않습니다.</li>
-  <li>본문에 없는 구조화 데이터나 허위 후기·평점을 사용하지 않습니다.</li>
+  <li>실제 상담과 방문에서 확인된 생활권·건물·이동 정보만 본문에 반영합니다.</li>
+  <li>지역명만 바꾼 복붙 문장을 쓰지 않고, 생활권마다 실제로 다른 확인 항목을 각각 작성합니다.</li>
+  <li>행정구역 변경(광주·전남 통합 등)은 공식 발표를 기준으로 반영하되, 이용자에게 익숙한 기존 지역명을 함께 유지합니다.</li>
+  <li>확인되지 않은 정보나 과장 표현('1위', '최저가', '무조건 가능')은 사용하지 않습니다.</li>
 </ul>
-<h2>문의</h2>
-<p>콘텐츠 정정·문의는 상호 간다GO, 전화예약 0508-202-4719 로 연락할 수 있습니다.</p>
-
+<h2>왜 만들었나요 (Why)</h2>
+<p>출장 케어는 예약 전에 확인할 것이 많은 서비스입니다. 건물 출입 방식, 숙소 정책, 이동 기준을 모르고 예약하면 방문이 지연되거나 무산되기 쉽습니다. 이 사이트는 그 확인 항목들을 지역·생활권·건물 유형별로 미리 정리해, 이용자가 예약 전에 스스로 확인할 수 있도록 돕기 위해 만들었습니다.</p>
+<h2>콘텐츠 검수와 갱신 기준</h2>
+<ul>
+  <li>본문에 없는 내용은 구조화 데이터(Schema)에 넣지 않습니다. 실제 후기가 없는 별점·리뷰 마크업은 사용하지 않습니다.</li>
+  <li>실제 오프라인 매장이 없는 방문형 서비스이므로 LocalBusiness 마크업을 사용하지 않습니다.</li>
+  <li>행정구역·교통(KTX·BRT 등) 변경 사항이 확인되면 해당 페이지를 갱신합니다.</li>
+  <li>이용자 문의에서 반복적으로 확인되는 새로운 기준(신축 단지 출입 방식 등)은 주기적으로 본문에 반영합니다.</li>
+</ul>
+<p>이 안내 페이지 자체도 같은 원칙으로 관리됩니다. 작성 기준이 바뀌면 이 페이지에 먼저 반영하고, 이용자가 언제든 현재의 운영 원칙을 확인할 수 있도록 유지합니다.</p>
+<h2>참고하는 공적 기준</h2>
+<p>생활권 구분과 행정 정보는 각 지자체의 행정구역 공식 안내(대전 5개 구 82개 동 체계, 세종 특별자치시의 무자치구 구조, 전북특별자치도의 시·군 구성 등)를 기준으로 확인합니다. 교통 거점 정보는 KTX·SRT 정차역과 터미널의 공식 운행 정보를 기준으로 하며, 변경이 확인되면 본문을 갱신합니다.</p>
+<h2>콘텐츠 작성 원칙 요약</h2>
+<ul>
+  <li><b>경험 우선</b> — 검색을 위한 문장이 아니라, 실제 상담·방문에서 확인된 정보를 씁니다.</li>
+  <li><b>이용자 관점</b> — '어느 지역이 가능한가'보다 '내 건물에서 무엇을 확인해야 하는가'를 기준으로 씁니다.</li>
+  <li><b>투명한 한계</b> — 안내가 어려운 지역·시간대는 어렵다고 씁니다. '무조건 가능'은 쓰지 않습니다.</li>
+  <li><b>지속 갱신</b> — 행정구역·교통·건물 출입 방식의 변화를 확인되는 대로 반영합니다.</li>
+</ul>
+<h2>정정 요청과 문의</h2>
+<p>본문 내용 중 사실과 다른 부분을 발견하셨거나, 거주하시는 건물·생활권의 정보가 바뀐 경우 알려주시면 확인 후 신속히 정정합니다. 콘텐츠 정정·제휴·기타 문의는 상호 간다GO, 전화예약 0508-202-4719로 연락해 주세요.</p>
+<h2>자주 묻는 질문</h2>
+<div class="faq">
+<details open><summary>콘텐츠는 누가 만드나요?</summary><p>천안·대전·세종·호남권에서 방문 안내를 실제 운영하는 간다GO 운영팀이 직접 작성하고 검수합니다.</p></details>
+<details><summary>정보가 틀린 것 같은데 어떻게 알리나요?</summary><p>대표번호 0508-202-4719로 알려주시면 확인 후 신속히 정정합니다.</p></details>
+<details><summary>후기나 별점은 왜 없나요?</summary><p>실제 후기 데이터가 게시 기준을 갖추기 전까지는 허위·조작 가능성이 있는 별점·리뷰를 사용하지 않는 것이 운영 원칙입니다.</p></details>
+</div>
 <h2>관련 지역 보기</h2>
 <div class="link-group"><ul>
 <li><a href="/central-honam/check/privacy/">개인정보 처리방침</a></li>
 <li><a href="/central-honam/check/service-policy/">불법·선정적 서비스 불가 안내</a></li>
+<li><a href="/central-honam/">천안·대전·세종·호남권 전체 지역 안내</a></li>
 </ul></div>
       </article>
       <aside class="aside">

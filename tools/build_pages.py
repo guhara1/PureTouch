@@ -156,6 +156,10 @@ def render(page):
   <meta property="og:description" content="{page['desc']}" />
   <meta property="og:url" content="{url}" />
   <meta property="og:image" content="{SITE}/assets/og-cover.jpg" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/style.css" />
