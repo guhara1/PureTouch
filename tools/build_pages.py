@@ -117,7 +117,8 @@ def related_html(links):
 
 def render(page):
     url = SITE + page["path"]
-    robots = page.get("robots", "index, follow, max-image-preview:large")
+    # 방침: noindex 미사용. 모든 페이지는 index, follow 로 고정한다.
+    robots = "index, follow, max-image-preview:large"
     crumbs = page["crumbs"]
     faq = page.get("faq", [])
     body = page["body"]

@@ -44,7 +44,11 @@ python3 tools/build_pages.py     # 페이지 재생성 (index.html, central-hona
 
 - [ ] **텔레그램 핸들** — 푸터 `제작문의`·`제휴문의` 버튼은 현재 `https://t.me/ganda_go` **플레이스홀더**.
       `css/style.css` 가 아닌 각 HTML 및 `tools/build_pages.py` 의 `TG` 상수를 실제 핸들로 교체.
+- [ ] **히어로 배경 이미지** — `assets/hero.jpg` 를 추가하면 자동으로 히어로 배경에 표시됨.
+      가독성 스크림(어두운 오버레이)이 이미 깔려 있어 밝은 글씨 시인성이 유지된다.
+      경로/투명도 조정은 `css/tokens.css` 의 `--hero-bg`, `css/style.css` 의 `.hero::before opacity`.
 - [ ] `assets/og-cover.jpg`, `assets/logo.png` 실제 이미지 추가 (현재 경로만 지정됨).
 - [ ] 도메인 확정 후 `SITE`(canonical/OG/sitemap)의 `gandago.co.kr` 교체.
-- [ ] 지시서 1차-B/1차-C 확장(동별·읍면동, 산단·혁신도시 상세)은 `pages_content.py` 에 추가하며,
-      본문 2,000자 미만 페이지는 `robots` 를 `noindex` 로 두거나 상위 생활권으로 canonical 처리.
+- [ ] 지시서 1차-B/1차-C 확장(동별·읍면동, 산단·혁신도시 상세)은 `pages_content.py` 에 추가.
+      **noindex 는 사용하지 않는다.** 모든 페이지는 `index, follow` 로 유지하며,
+      본문이 얇은 지역은 페이지를 만들지 말고 상위 생활권 페이지로 통합하거나 canonical 처리한다.
