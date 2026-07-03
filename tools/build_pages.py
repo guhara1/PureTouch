@@ -31,6 +31,21 @@ TG_ICON = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
            'l.34-4.8 8.72-7.88c.38-.34-.08-.53-.6-.19L6.7 13.2l-4.65-1.45c-1.01-.32-1.03-1.01.21-1.5L20.6 2.9'
            'c.84-.31 1.58.2 1.34 1.4Z"/></svg>')
 
+ASIDE = f"""<aside class="aside">
+      <div class="cta-card">
+        <h3 class="cta-title">지금 예약 문의</h3>
+        <p class="cta-sub">천안·대전·세종·호남권 생활권별 방문 안내</p>
+        <a class="btn btn-accent cta-btn" href="tel:0508-202-4719">전화 예약 0508-202-4719</a>
+        <a class="btn btn-ghost cta-btn" href="{TG}" target="_blank" rel="noopener nofollow">{TG_ICON} 텔레그램 문의</a>
+        <ul class="cta-price">
+          <li><span>60분 코스</span><b>90,000원</b></li>
+          <li><span>90분 코스</span><b>150,000원</b></li>
+          <li><span>120분 코스</span><b>180,000원</b></li>
+        </ul>
+        <p class="cta-note">지역·예약 시간대·이동 거리에 따라 상담 시 최종 확인됩니다. 불법·선정적 서비스는 제공하지 않습니다.</p>
+      </div>
+    </aside>"""
+
 FOOTER = f"""<footer class="site-footer">
   <div class="wrap">
     <div class="footer-top">
@@ -155,8 +170,13 @@ def render(page):
   </div>
 </section>
 <main class="section">
-  <div class="wrap prose">
+  <div class="wrap">
+    <div class="article-layout">
+      <article class="article-main prose">
 {body}
+      </article>
+      {ASIDE}
+    </div>
   </div>
 </main>
 {FOOTER}

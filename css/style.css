@@ -63,6 +63,7 @@ p { margin: 0 0 1em; }
   padding: 13px 26px; border-radius: var(--r-pill); font-weight: 800; font-size: 0.98rem;
   border: 1px solid transparent; cursor: pointer; transition: transform .16s, box-shadow .16s, background .16s;
 }
+.btn svg { width: 17px; height: 17px; flex: 0 0 auto; }
 .btn-accent {
   color: var(--c-on-accent); background: var(--grad-accent); box-shadow: var(--sh-glow);
 }
@@ -227,7 +228,66 @@ p { margin: 0 0 1em; }
 .footer-bottom a { color: var(--c-text-faint); }
 .footer-bottom a:hover { color: var(--c-text-muted); }
 
+/* ---------- Article layout (지역/정책 페이지) ---------- */
+.article-layout {
+  display: grid; grid-template-columns: minmax(0, 1fr) 322px; gap: 44px; align-items: start;
+}
+.article-main { min-width: 0; max-width: none; margin: 0; }
+
+/* 리드 문단 — 첫 문단을 강조 */
+.article-main > p:first-of-type {
+  font-size: 1.14rem; line-height: 1.82; color: var(--c-text-strong);
+  border-left: 3px solid var(--c-accent); padding: 2px 0 2px 18px; margin: 4px 0 26px;
+}
+
+/* h2 앞 오렌지 강조바 */
+.article-main h2 { position: relative; padding-left: 16px; margin: 40px 0 16px; }
+.article-main h2::before {
+  content: ""; position: absolute; left: 0; top: 0.16em; bottom: 0.16em;
+  width: 5px; border-radius: 3px; background: var(--grad-accent);
+}
+
+/* 본문 리스트 → 카드형 행 (스캔 용이 · 시인성) */
+.article-main > ul { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 10px; }
+.article-main > ul > li {
+  position: relative; background: var(--c-elev-1); border: 1px solid var(--c-card-border);
+  border-radius: var(--r-md); padding: 14px 18px 14px 44px; color: var(--c-text);
+  box-shadow: var(--overlay-inset); transition: border-color .16s, transform .16s;
+}
+.article-main > ul > li:hover { border-color: var(--c-card-border-strong); transform: translateX(2px); }
+.article-main > ul > li::before {
+  content: ""; position: absolute; left: 18px; top: 1.3em;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--c-accent);
+  box-shadow: 0 0 0 4px var(--c-accent-soft);
+}
+.article-main > ul > li b { color: var(--c-text-strong); }
+
+/* ---------- Aside: 고정 예약 카드 ---------- */
+.aside { position: sticky; top: 88px; display: grid; gap: 16px; }
+.cta-card {
+  background: var(--c-card); background-image: var(--grad-card);
+  border: 1px solid var(--c-card-border-strong); border-radius: var(--r-lg);
+  padding: 24px 22px; box-shadow: var(--sh-card), var(--overlay-inset);
+}
+.cta-card .cta-title { font-size: 1.14rem; }
+.cta-card .cta-sub { color: var(--c-text-muted); font-size: 0.9rem; margin: 6px 0 18px; }
+.cta-card .cta-btn { width: 100%; margin-top: 10px; }
+.cta-price { list-style: none; padding: 0; margin: 18px 0 14px; display: grid; gap: 2px; }
+.cta-price li { display: flex; justify-content: space-between; align-items: center; padding: 10px 2px; border-bottom: 1px solid var(--c-line); }
+.cta-price li:last-child { border-bottom: 0; }
+.cta-price span { color: var(--c-text-muted); font-size: 0.94rem; }
+.cta-price b { color: var(--c-text-strong); font-size: 1.02rem; }
+.cta-note { color: var(--c-text-faint); font-size: 0.82rem; margin: 4px 0 0; line-height: 1.6; }
+
+/* 관련 지역 · FAQ 는 본문 폭 전체를 쓰도록 */
+.article-main .faq, .article-main .whw { max-width: none; }
+
 /* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .article-layout { grid-template-columns: 1fr; gap: 30px; }
+  .aside { position: static; }
+}
+
 @media (max-width: 860px) {
   .price-grid { grid-template-columns: 1fr; }
   .whw { grid-template-columns: 1fr; }
