@@ -16,9 +16,16 @@ central-honam/                  # 지역 안내 허브 + 22개 하위 페이지
   use/…                         # 이용 장소
   check/…                       # 예약 전 확인 · 개인정보 · 서비스 정책
   author/                       # 작성자·검수자 안내
-tools/build_pages.py            # 지역/정책 페이지 생성기
+tools/build_pages.py            # 지역/정책 페이지 생성기 (권역 메인에 행정 트리 자동 주입)
 tools/pages_content.py          # 페이지별 콘텐츠 (여기만 수정)
+tools/regions_data.py           # 행정구역 계층 데이터 (시→구→행정동, 대표동 통합)
+tools/build_regions.py          # 행정동 개별 페이지 생성기 (205개)
+tools/build_sitemap.py          # sitemap.xml 생성기
 ```
+
+행정구역 페이지: 천안(2구 20동)·대전(5구 43동)·세종(20동/읍면)·호남 13개 시(구·동 178곳).
+숫자 분동(1동·2동·3동)은 대표동 1개로 통합. 동 추가는 `regions_data.py` 수정 후
+`python3 tools/build_regions.py && python3 tools/build_sitemap.py` 실행.
 
 ## 페이지 추가·수정
 

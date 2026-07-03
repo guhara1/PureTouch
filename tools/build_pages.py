@@ -129,13 +129,46 @@ def related_html(links):
     return f'<h2>관련 지역 보기</h2>\n<div class="link-group"><ul>\n{lis}\n</ul></div>'
 
 
+def _admin_tree(path):
+    """권역 메인 페이지에 시→구→동 링크 트리를 주입한다."""
+    try:
+        from regions_data import CITIES, HONAM_CITIES
+    except ImportError:
+        return ""
+    for city in CITIES:
+        if city["path"] != path:
+            continue
+        if city["gus"]:
+            lines = []
+            for gu in city["gus"]:
+                gu_url = city["path"] + gu["slug"] + "/"
+                dongs = " · ".join(f'<a href="{gu_url + d["slug"] + "/"}">{d["name"]}</a>' for d in gu["dongs"])
+                lines.append(f'  <li><b><a href="{gu_url}">{gu["name"]}</a></b><br />{dongs}</li>')
+            return ("\n<h2>행정구·행정동별 안내</h2>\n"
+                    "<p>내 위치의 구와 동을 선택하면 해당 생활권의 이용 기준을 자세히 확인할 수 있습니다. "
+                    "숫자 분동(1동·2동 등)은 대표 동 하나로 안내합니다.</p>\n<ul>\n" + "\n".join(lines) + "\n</ul>")
+        dongs = " · ".join(f'<a href="{city["path"] + d["slug"] + "/"}">{d["name"]}</a>' for d in city["dongs"])
+        return ("\n<h2>행정동·읍면별 안내</h2>\n"
+                "<p>내 위치의 동·읍면을 선택하면 해당 생활권의 이용 기준을 자세히 확인할 수 있습니다. "
+                "숫자 분동은 대표 동 하나로 안내합니다.</p>\n<ul>\n  <li>" + dongs + "</li>\n</ul>")
+    if path == "/central-honam/honam/":
+        lines = []
+        for city in HONAM_CITIES:
+            cnt = sum(len(g["dongs"]) for g in city["gus"]) if city.get("gus") else len(city["dongs"])
+            lines.append(f'  <li><b><a href="{city["path"]}">{city["name"]}</a></b> — {city["intro"]}. 행정동 {cnt}곳 안내</li>')
+        return ("\n<h2>도시별 행정동 안내</h2>\n"
+                "<p>호남권은 시 단위 페이지에서 행정구·행정동별 개별 안내로 이어집니다. 내 도시를 선택하세요.</p>\n<ul>\n"
+                + "\n".join(lines) + "\n</ul>")
+    return ""
+
+
 def render(page):
     url = SITE + page["path"]
     # 방침: noindex 미사용. 모든 페이지는 index, follow 로 고정한다.
     robots = "index, follow, max-image-preview:large"
     crumbs = page["crumbs"]
     faq = page.get("faq", [])
-    body = page["body"]
+    body = page["body"] + _admin_tree(page["path"])
     if page.get("whw"):
         body += "\n" + whw_html(*page["whw"])
     body += "\n" + faq_html(faq)
