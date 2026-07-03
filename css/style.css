@@ -282,6 +282,31 @@ p { margin: 0 0 1em; }
 /* 관련 지역 · FAQ 는 본문 폭 전체를 쓰도록 */
 .article-main .faq, .article-main .whw { max-width: none; }
 
+/* ---------- Reviews ---------- */
+.reviews-summary {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: 6px 0 22px; padding: 16px 20px; border-radius: var(--r-md);
+  background: var(--c-card); border: 1px solid var(--c-card-border); box-shadow: var(--overlay-inset);
+}
+.reviews-summary b { font-size: 1.9rem; color: var(--c-text-strong); }
+.reviews-summary .reviews-count { color: var(--c-text-muted); font-size: 0.94rem; }
+.review-stars { color: var(--c-accent); letter-spacing: 2px; font-size: 1.02rem; }
+.review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.review-card {
+  background: var(--c-elev-1); border: 1px solid var(--c-card-border);
+  border-radius: var(--r-md); padding: 18px 20px; box-shadow: var(--overlay-inset);
+}
+.review-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+.review-type { font-weight: 800; color: var(--c-text-strong); font-size: 0.98rem; }
+.review-body { color: var(--c-text); font-size: 0.95rem; margin: 0 0 12px; }
+.review-meta { color: var(--c-text-faint); font-size: 0.85rem; margin: 0; }
+/* prose 내부 카드가 리스트 스타일을 받지 않도록 */
+.article-main .reviews-wrap ul, .article-main .longtail ul { margin: 0; }
+
+/* ---------- Longtail 내부링크 섹션 ---------- */
+.longtail { margin-top: 40px; padding-top: 8px; }
+.longtail .link-cols { gap: 22px 30px; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .article-layout { grid-template-columns: 1fr; gap: 30px; }

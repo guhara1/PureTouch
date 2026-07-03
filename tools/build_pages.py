@@ -8,9 +8,85 @@ index.html 과 central-honam/index.html 은 손으로 관리하며 이 스크립
 실행: python3 tools/build_pages.py
 """
 import os, json, html
+from reviews_data import REVIEWS, rating_value, rating_count, stars
 
-SITE = "https://gandago.co.kr"
+SITE = "https://puretouch.pages.dev"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+NAVER_VERIFY = "0184f03e4b49d477489bca35b1379f370ce6001c"
+
+# 전 페이지 <head> 공통 추가: 네이버 인증 + RSS 자동발견
+HEAD_EXTRA = f"""  <meta name="naver-site-verification" content="{NAVER_VERIFY}" />
+  <link rel="alternate" type="application/rss+xml" title="간다GO 소식" href="/rss.xml" />"""
+
+ORG_ID = f"{SITE}/#org"
+WEBSITE_ID = f"{SITE}/#website"
+
+
+def org_node(with_reviews=False):
+    node = {
+        "@type": "Organization",
+        "@id": ORG_ID,
+        "name": "간다GO",
+        "url": f"{SITE}/",
+        "logo": f"{SITE}/assets/logo.png",
+        "image": f"{SITE}/assets/og-cover.jpg",
+        "telephone": "+82-508-202-4719",
+        "areaServed": ["천안", "대전", "세종", "광주", "전주", "익산", "군산", "여수", "순천", "목포", "나주", "호남권"],
+        "contactPoint": {"@type": "ContactPoint", "telephone": "+82-508-202-4719",
+                         "contactType": "reservations", "availableLanguage": "ko"},
+        "aggregateRating": {"@type": "AggregateRating", "ratingValue": str(rating_value()),
+                            "reviewCount": str(rating_count()), "bestRating": "5", "worstRating": "1"},
+    }
+    if with_reviews:
+        node["review"] = [{
+            "@type": "Review",
+            "author": {"@type": "Person", "name": r["author"]},
+            "datePublished": r["date"],
+            "name": f'{r["type"]} 후기',
+            "reviewBody": r["body"],
+            "reviewRating": {"@type": "Rating", "ratingValue": str(r["rating"]),
+                             "bestRating": "5", "worstRating": "1"},
+        } for r in REVIEWS]
+    return node
+
+
+def service_node():
+    return {
+        "@type": "Service",
+        "@id": f"{SITE}/#service",
+        "name": "간다GO 출장마사지·홈타이 방문 케어",
+        "serviceType": "출장마사지·홈타이 방문 안내",
+        "provider": {"@id": ORG_ID},
+        "areaServed": "천안·대전·세종·호남권",
+        "aggregateRating": {"@type": "AggregateRating", "ratingValue": str(rating_value()),
+                            "reviewCount": str(rating_count()), "bestRating": "5", "worstRating": "1"},
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog", "name": "이용 코스",
+            "itemListElement": [
+                {"@type": "Offer", "name": "60분 코스", "price": "90000", "priceCurrency": "KRW"},
+                {"@type": "Offer", "name": "90분 코스", "price": "150000", "priceCurrency": "KRW"},
+                {"@type": "Offer", "name": "120분 코스", "price": "180000", "priceCurrency": "KRW"},
+            ],
+        },
+    }
+
+
+def reviews_html(heading="이용 후기"):
+    """화면 노출용 후기 목록 (스키마와 1:1 대응)."""
+    avg, cnt = rating_value(), rating_count()
+    cards = []
+    for r in REVIEWS:
+        cards.append(
+            f'<article class="review-card">'
+            f'<div class="review-head"><span class="review-type">{r["type"]}</span>'
+            f'<span class="review-stars" aria-label="{r["rating"]}점">{stars(r["rating"])}</span></div>'
+            f'<p class="review-body">{r["body"]}</p>'
+            f'<p class="review-meta">{r["author"]} · <time datetime="{r["date"]}">{r["date"].replace("-", ".")}</time></p>'
+            f'</article>')
+    return (f'<section class="reviews-wrap">'
+            f'<div class="reviews-summary"><b>{avg}</b><span class="review-stars">{stars(round(avg))}</span>'
+            f'<span class="reviews-count">이용자 후기 {cnt}건 평균</span></div>'
+            f'<div class="review-grid">' + "\n".join(cards) + '</div></section>')
 
 HEADER = """<header class="site-header">
   <div class="wrap">
@@ -60,6 +136,7 @@ FOOTER = f"""<footer class="site-footer">
         <li><a href="/central-honam/honam/">호남권</a></li>
       </ul></div>
       <div class="footer-col"><h4>이용 안내</h4><ul>
+        <li><a href="/central-honam/reviews/">이용 후기</a></li>
         <li><a href="/central-honam/check/privacy/">개인정보 처리방침</a></li>
         <li><a href="/central-honam/check/service-policy/">불법·선정적 서비스 불가 안내</a></li>
         <li><a href="/central-honam/author/">작성자·검수자 안내</a></li>
@@ -86,10 +163,14 @@ def breadcrumb_html(crumbs):
     return '<p class="breadcrumb">' + " › ".join(parts) + "</p>"
 
 
-def schema_block(url, name, crumbs, faq):
+def schema_block(url, name, crumbs, faq, with_reviews=False):
     graph = [
+        org_node(with_reviews=with_reviews),
+        {"@type": "WebSite", "@id": WEBSITE_ID, "url": f"{SITE}/", "name": "간다GO",
+         "publisher": {"@id": ORG_ID}, "inLanguage": "ko"},
+        service_node(),
         {"@type": "WebPage", "@id": f"{url}#webpage", "url": url, "name": name,
-         "inLanguage": "ko", "isPartOf": {"@id": f"{SITE}/#website"},
+         "inLanguage": "ko", "isPartOf": {"@id": WEBSITE_ID}, "about": {"@id": ORG_ID},
          "primaryImageOfPage": f"{SITE}/assets/og-cover.jpg"},
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + u if u.startswith("/") else u}
@@ -101,6 +182,41 @@ def schema_block(url, name, crumbs, faq):
              "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
     data = {"@context": "https://schema.org", "@graph": graph}
     return '<script type="application/ld+json">\n' + json.dumps(data, ensure_ascii=False, indent=2) + '\n</script>'
+
+
+LONGTAIL_TOPICS = [
+    ("이용 장소별 안내", [
+        ("호텔·숙소 출장마사지 이용 기준", "/central-honam/use/hotel/"),
+        ("오피스텔 홈타이 방문 안내", "/central-honam/use/officetel/"),
+        ("자택 출장 케어 이용 방법", "/central-honam/use/home/"),
+    ]),
+    ("예약 전 확인", [
+        ("심야 예약 가능 시간 확인", "/central-honam/check/time/"),
+        ("아파트 공동현관 방문 확인", "/central-honam/check/apartment-access/"),
+        ("외곽 지역 출장 이동비 기준", "/central-honam/check/travel-fee/"),
+    ]),
+    ("지역별 생활권", [
+        ("천안 출장마사지 생활권 안내", "/central-honam/cheonan/"),
+        ("대전 출장마사지 생활권 안내", "/central-honam/daejeon/"),
+        ("세종 출장마사지 생활권 안내", "/central-honam/sejong/"),
+        ("호남권 출장마사지 생활권 안내", "/central-honam/honam/"),
+    ]),
+    ("후기·안내", [
+        ("실제 이용 후기 보기", "/central-honam/reviews/"),
+        ("작성자·검수자 안내", "/central-honam/author/"),
+        ("개인정보 처리방침", "/central-honam/check/privacy/"),
+    ]),
+]
+
+
+def longtail_block(exclude_path=None):
+    cols = []
+    for title, links in LONGTAIL_TOPICS:
+        lis = "\n".join(f'    <li><a href="{u}">{a}</a></li>' for a, u in links if u != exclude_path)
+        if lis:
+            cols.append(f'  <div class="link-group"><h3>{title}</h3><ul>\n{lis}\n  </ul></div>')
+    return ('<section class="longtail">\n<h2>이런 주제도 함께 찾아보세요</h2>\n'
+            '<div class="link-cols">\n' + "\n".join(cols) + '\n</div>\n</section>')
 
 
 def faq_html(faq):
@@ -168,11 +284,15 @@ def render(page):
     robots = "index, follow, max-image-preview:large"
     crumbs = page["crumbs"]
     faq = page.get("faq", [])
+    with_reviews = bool(page.get("reviews"))
     body = page["body"] + _admin_tree(page["path"])
+    if with_reviews:
+        body += "\n" + reviews_html()
     if page.get("whw"):
         body += "\n" + whw_html(*page["whw"])
     body += "\n" + faq_html(faq)
     body += "\n" + related_html(page.get("related", []))
+    body += "\n" + longtail_block(exclude_path=page["path"])
     doc = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -193,9 +313,10 @@ def render(page):
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
+{HEAD_EXTRA}
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/style.css" />
-  {schema_block(url, page['h1'], crumbs, faq)}
+  {schema_block(url, page['h1'], crumbs, faq, with_reviews=with_reviews)}
 </head>
 <body>
 {HEADER}

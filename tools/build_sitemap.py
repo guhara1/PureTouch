@@ -5,7 +5,7 @@
 """
 import glob, os, re, sys
 
-SITE = "https://gandago.co.kr"
+SITE = "https://puretouch.pages.dev"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 

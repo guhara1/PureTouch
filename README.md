@@ -37,6 +37,38 @@ python3 tools/build_pages.py     # 페이지 재생성 (index.html, central-hona
 
 `sitemap.xml` 은 noindex 를 제외하고 색인 대상만 포함합니다. 새 페이지 추가 후 재생성하세요.
 
+## 색인(인덱싱) 빠르게 하기 — 네이버·구글·빙
+
+배포(Cloudflare Pages) 후 아래 순서로 제출하면 가장 빠릅니다.
+
+1. **구글 서치콘솔** (search.google.com/search-console)
+   - 속성 등록 → `sitemap.xml` 제출 → 메인 URL은 "URL 검사 → 색인 생성 요청".
+   - `rss.xml` 도 사이트맵으로 추가 제출 가능(구글은 RSS를 사이트맵으로 인식).
+2. **네이버 서치어드바이저** (searchadvisor.naver.com)
+   - 사이트 소유확인: 메인 페이지 `<head>` 에 이미 `naver-site-verification` 메타태그가 들어 있음(전 페이지 적용).
+   - 요청 → 사이트맵 제출: `sitemap.xml`, RSS 제출: `rss.xml`.
+   - "웹페이지 수집" 에서 주요 URL 직접 수집 요청.
+3. **IndexNow** (빙·네이버 즉시 통보) — 키 파일 `9d7bcc8caadaa5426c531da7dc788412.txt` 가 루트에 있음.
+   배포 후 아래로 URL 변경을 즉시 통보:
+   ```bash
+   curl "https://api.indexnow.org/indexnow?url=https://puretouch.pages.dev/&key=9d7bcc8caadaa5426c531da7dc788412"
+   # 여러 URL은 JSON(POST)으로 일괄 제출 가능 (api.indexnow.org, key + urlList)
+   ```
+
+색인 파일 재생성:
+```bash
+python3 tools/build_sitemap.py   # sitemap.xml (230 URL)
+python3 tools/build_rss.py       # rss.xml
+```
+
+## 후기·평점 스키마
+
+- `tools/reviews_data.py` 가 후기 단일 출처(SSOT). 화면 노출 + Review/AggregateRating 스키마에 함께 사용.
+- **평점(AggregateRating)** 은 전 페이지 Organization·Service 스키마에 적용(현재 평균 4.4 / 10건).
+- **개별 Review 배열**은 후기가 화면에 실제로 보이는 2개 페이지(홈 `/`, 후기 `/central-honam/reviews/`)에만 넣음
+  — 구글 정책상 "리뷰 마크업은 화면에 보이는 리뷰와 일치"해야 하므로, 후기 없는 페이지엔 개별 리뷰를 넣지 않음.
+- 후기 추가/수정: `reviews_data.py` 편집 후 `python3 tools/build_pages.py` (홈은 자동 반영 스크립트 참고).
+
 ## SEO 원칙 (구글 정책 준수)
 
 - **E-E-A-T** — 작성자·검수자 안내, 개인정보 처리방침, 연락처 명시.
@@ -55,7 +87,7 @@ python3 tools/build_pages.py     # 페이지 재생성 (index.html, central-hona
       가독성 스크림(어두운 오버레이)이 이미 깔려 있어 밝은 글씨 시인성이 유지된다.
       경로/투명도 조정은 `css/tokens.css` 의 `--hero-bg`, `css/style.css` 의 `.hero::before opacity`.
 - [ ] `assets/og-cover.jpg`, `assets/logo.png` 실제 이미지 추가 (현재 경로만 지정됨).
-- [ ] 도메인 확정 후 `SITE`(canonical/OG/sitemap)의 `gandago.co.kr` 교체.
+- [ ] 도메인 확정 후 `SITE`(canonical/OG/sitemap)의 `puretouch.pages.dev` 교체.
 - [ ] 지시서 1차-B/1차-C 확장(동별·읍면동, 산단·혁신도시 상세)은 `pages_content.py` 에 추가.
       **noindex 는 사용하지 않는다.** 모든 페이지는 `index, follow` 로 유지하며,
       본문이 얇은 지역은 페이지를 만들지 말고 상위 생활권 페이지로 통합하거나 canonical 처리한다.

@@ -1,4 +1,16 @@
+# 간다GO · PureTouch — robots
+# 모든 크롤러 전체 허용 (네이버 Yeti · 구글 Googlebot · 빙 등)
 User-agent: *
 Allow: /
 
-Sitemap: https://gandago.co.kr/sitemap.xml
+# 네이버 검색로봇
+User-agent: Yeti
+Allow: /
+
+# 구글
+User-agent: Googlebot
+Allow: /
+
+# 사이트맵 + RSS (RSS는 구글이 사이트맵으로도 인식)
+Sitemap: https://puretouch.pages.dev/sitemap.xml
+Sitemap: https://puretouch.pages.dev/rss.xml
