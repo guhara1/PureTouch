@@ -1,0 +1,211 @@
+/* =====================================================================
+   간다GO · PureTouch — Component / Layout styles
+   Pretendard + tokens.css 프리미엄 팔레트 오버레이
+   ===================================================================== */
+
+/* Pretendard (self-host 권장, 여기서는 dynamic subset CDN) */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--c-bg-base);
+  color: var(--c-text);
+  line-height: 1.72;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4 { color: var(--c-text-strong); line-height: 1.28; letter-spacing: -0.02em; margin: 0; }
+p { margin: 0 0 1em; }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 22px; }
+.narrow { max-width: var(--wrap-narrow); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(10, 14, 23, 0.82);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--c-line);
+}
+.site-header .wrap { display: flex; align-items: center; gap: 20px; height: 66px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--c-text-strong); font-size: 1.14rem; }
+.brand .dot {
+  width: 26px; height: 26px; border-radius: 8px; background: var(--grad-accent);
+  box-shadow: var(--sh-glow); display: grid; place-items: center;
+  font-size: 0.72rem; color: var(--c-on-accent); font-weight: 900;
+}
+.nav { margin-left: auto; display: flex; gap: 4px; flex-wrap: wrap; }
+.nav a {
+  padding: 8px 12px; border-radius: var(--r-pill); font-size: 0.9rem;
+  color: var(--c-text-muted); font-weight: 600; transition: .18s;
+}
+.nav a:hover { color: var(--c-text-strong); background: rgba(255,255,255,0.05); }
+.nav a.cta {
+  color: var(--c-on-accent); background: var(--grad-accent);
+  font-weight: 800; box-shadow: var(--sh-soft);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 26px; border-radius: var(--r-pill); font-weight: 800; font-size: 0.98rem;
+  border: 1px solid transparent; cursor: pointer; transition: transform .16s, box-shadow .16s, background .16s;
+}
+.btn-accent {
+  color: var(--c-on-accent); background: var(--grad-accent); box-shadow: var(--sh-glow);
+}
+.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 20px 48px -8px var(--c-accent-glow); }
+.btn-ghost {
+  color: var(--c-text-strong); background: rgba(255,255,255,0.03);
+  border-color: var(--c-card-border-strong); box-shadow: var(--overlay-inset);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.07); border-color: var(--c-accent); }
+
+/* ---------- Hero ---------- */
+.hero { background: var(--grad-hero); padding: 92px 0 76px; text-align: center; position: relative; }
+.hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 15px;
+  border-radius: var(--r-pill); background: var(--c-accent-soft); color: var(--c-accent-hi);
+  font-weight: 700; font-size: 0.84rem; border: 1px solid rgba(255,122,24,0.28); margin-bottom: 22px;
+}
+.hero h1 { font-size: clamp(2rem, 5vw, 3.15rem); font-weight: 900; }
+.hero .lead { max-width: 640px; margin: 20px auto 34px; color: var(--c-text-muted); font-size: 1.06rem; }
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hero .contact-line { margin-top: 26px; color: var(--c-text-faint); font-size: 0.92rem; }
+.hero .contact-line b { color: var(--c-accent-hi); }
+
+/* ---------- Section shell ---------- */
+.section { padding: 74px 0; }
+.section-head { text-align: center; max-width: 640px; margin: 0 auto 46px; }
+.section-head h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 900; }
+.section-head p { margin-top: 12px; color: var(--c-text-muted); }
+.tag { color: var(--c-accent-hi); font-weight: 800; font-size: 0.86rem; letter-spacing: 0.02em; }
+
+/* ---------- Pricing (screenshot 재현) ---------- */
+.price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+.price-card {
+  position: relative; background: var(--c-card); background-image: var(--grad-card);
+  border: 1px solid var(--c-card-border); border-radius: var(--r-lg);
+  padding: 34px 26px 30px; text-align: center; box-shadow: var(--sh-card), var(--overlay-inset);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.price-card h3 { font-size: 1.24rem; font-weight: 800; }
+.price-card .amount { font-size: 2.35rem; font-weight: 900; color: var(--c-text-strong); margin: 8px 0 2px; }
+.price-card .amount small { font-size: 0.95rem; font-weight: 700; color: var(--c-text-muted); }
+.price-card .mins { color: var(--c-accent-hi); font-weight: 800; }
+.price-card .desc { color: var(--c-text-muted); font-size: 0.96rem; margin-bottom: 18px; }
+.price-card .btn { margin-top: auto; width: 100%; }
+.price-card.featured {
+  border-color: var(--c-accent); box-shadow: var(--sh-glow), var(--overlay-inset);
+  background-image: radial-gradient(120% 90% at 50% 0%, rgba(255,122,24,0.16), transparent 55%), var(--grad-card);
+}
+.price-card .badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--grad-accent); color: var(--c-on-accent); font-weight: 800;
+  font-size: 0.8rem; padding: 6px 16px; border-radius: var(--r-pill); box-shadow: var(--sh-soft);
+}
+.price-note { text-align: center; margin-top: 28px; color: var(--c-text-faint); font-size: 0.92rem; }
+.price-note a { color: var(--c-accent-hi); font-weight: 700; }
+
+/* ---------- Feature / info cards ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+.info-card {
+  background: var(--c-card); background-image: var(--grad-card);
+  border: 1px solid var(--c-card-border); border-radius: var(--r-md);
+  padding: 24px 22px; box-shadow: var(--sh-soft), var(--overlay-inset); transition: .18s;
+}
+.info-card:hover { border-color: var(--c-card-border-strong); transform: translateY(-3px); }
+.info-card h3 { font-size: 1.08rem; margin-bottom: 8px; }
+.info-card p { color: var(--c-text-muted); font-size: 0.95rem; margin: 0; }
+
+/* ---------- Region link lists (내부링크 · 롱테일 앵커) ---------- */
+.link-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px 32px; }
+.link-group h3 { font-size: 1.02rem; margin-bottom: 14px; color: var(--c-accent-hi); }
+.link-group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.link-group a {
+  display: inline-flex; gap: 8px; color: var(--c-text); font-size: 0.95rem; transition: .15s;
+  border-bottom: 1px solid transparent;
+}
+.link-group a::before { content: "→"; color: var(--c-accent); font-weight: 700; }
+.link-group a:hover { color: var(--c-text-strong); }
+
+/* ---------- Prose (지역/정책 본문) ---------- */
+.prose { max-width: var(--wrap-narrow); margin: 0 auto; }
+.prose h2 { font-size: 1.5rem; margin: 42px 0 14px; }
+.prose h3 { font-size: 1.18rem; margin: 30px 0 10px; color: var(--c-accent-hi); }
+.prose p, .prose li { color: var(--c-text); }
+.prose ul { padding-left: 20px; }
+.prose li { margin: 6px 0; }
+.prose .breadcrumb { color: var(--c-text-faint); font-size: 0.88rem; margin-bottom: 8px; }
+.prose .breadcrumb a { color: var(--c-text-muted); }
+.prose .breadcrumb a:hover { color: var(--c-accent-hi); }
+
+/* ---------- FAQ ---------- */
+.faq { max-width: var(--wrap-narrow); margin: 0 auto; display: grid; gap: 12px; }
+.faq details {
+  background: var(--c-card); border: 1px solid var(--c-card-border);
+  border-radius: var(--r-md); padding: 4px 20px; box-shadow: var(--overlay-inset);
+}
+.faq summary {
+  cursor: pointer; padding: 16px 0; font-weight: 700; color: var(--c-text-strong);
+  list-style: none; display: flex; justify-content: space-between; gap: 12px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--c-accent); font-weight: 800; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { color: var(--c-text-muted); padding-bottom: 16px; margin: 0; }
+
+/* ---------- Who/How/Why ---------- */
+.whw { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.whw .info-card h3 { color: var(--c-accent-hi); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--c-bg-deep); border-top: 1px solid var(--c-line);
+  padding: 56px 0 30px; margin-top: 40px;
+}
+.footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 34px; }
+.footer-brand .brand { margin-bottom: 12px; }
+.footer-brand p { color: var(--c-text-muted); font-size: 0.92rem; max-width: 320px; }
+.footer-biz { color: var(--c-text-muted); font-size: 0.92rem; }
+.footer-biz b { color: var(--c-text-strong); }
+.footer-biz a { color: var(--c-accent-hi); font-weight: 700; }
+.footer-col h4 { font-size: 0.98rem; margin-bottom: 12px; color: var(--c-text-strong); }
+.footer-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.footer-col a { color: var(--c-text-muted); font-size: 0.9rem; }
+.footer-col a:hover { color: var(--c-accent-hi); }
+
+/* 오렌지 제작문의 · 제휴문의 버튼 (텔레그램) */
+.footer-cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0 22px; }
+.footer-cta .btn { padding: 12px 22px; font-size: 0.94rem; }
+.footer-cta .btn svg { width: 17px; height: 17px; }
+
+.footer-bottom {
+  border-top: 1px solid var(--c-line); margin-top: 28px; padding-top: 22px;
+  display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  color: var(--c-text-faint); font-size: 0.84rem;
+}
+.footer-bottom a { color: var(--c-text-faint); }
+.footer-bottom a:hover { color: var(--c-text-muted); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .price-grid { grid-template-columns: 1fr; }
+  .whw { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .hero { padding: 66px 0 54px; }
+  .section { padding: 56px 0; }
+}
