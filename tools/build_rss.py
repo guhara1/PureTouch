@@ -6,7 +6,7 @@
 """
 import glob, os, re, sys, html
 
-SITE = "https://puretouch.pages.dev"
+SITE = "https://puretouch-gandago.netlify.app"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 WDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]

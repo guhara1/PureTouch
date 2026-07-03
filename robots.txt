@@ -12,5 +12,5 @@ User-agent: Googlebot
 Allow: /
 
 # 사이트맵 + RSS (RSS는 구글이 사이트맵으로도 인식)
-Sitemap: https://puretouch.pages.dev/sitemap.xml
-Sitemap: https://puretouch.pages.dev/rss.xml
+Sitemap: https://puretouch-gandago.netlify.app/sitemap.xml
+Sitemap: https://puretouch-gandago.netlify.app/rss.xml

@@ -5,7 +5,7 @@
 """
 import glob, os, re, sys
 
-SITE = "https://puretouch.pages.dev"
+SITE = "https://puretouch-gandago.netlify.app"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 

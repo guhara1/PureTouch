@@ -10,9 +10,9 @@ index.html 과 central-honam/index.html 은 손으로 관리하며 이 스크립
 import os, json, html
 from reviews_data import REVIEWS, rating_value, rating_count, stars
 
-SITE = "https://puretouch.pages.dev"
+SITE = "https://puretouch-gandago.netlify.app"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-NAVER_VERIFY = "0184f03e4b49d477489bca35b1379f370ce6001c"
+NAVER_VERIFY = "bf46e88651b938869e2456d58c33a8666f1ee30e"
 
 # 전 페이지 <head> 공통 추가: 네이버 인증 + RSS 자동발견
 HEAD_EXTRA = f"""  <meta name="naver-site-verification" content="{NAVER_VERIFY}" />
